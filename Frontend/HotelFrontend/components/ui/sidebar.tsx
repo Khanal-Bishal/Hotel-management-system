@@ -85,22 +85,20 @@ export const DesktopSidebar = ({
 }: React.ComponentProps<typeof motion.div>) => {
   const { open, setOpen, animate } = useSidebar();
   return (
-    <>
-      <motion.div
-        className={cn(
-          'hidden h-full w-[300px] shrink-0 bg-orange-500 px-4 py-4 md:flex md:flex-col',
-          className
-        )}
-        animate={{
-          width: animate ? (open ? '300px' : '60px') : '300px',
-        }}
-        onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(false)}
-        {...props}
-      >
-        {children}
-      </motion.div>
-    </>
+    <motion.div
+      className={cn(
+        'hidden h-full w-[250px] shrink-0 bg-neutral-900 px-4 py-4 md:flex md:flex-col',
+        className
+      )}
+      animate={{
+        width: animate ? (open ? '250px' : '60px') : '250px',
+      }}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+      {...props}
+    >
+      {children}
+    </motion.div>
   );
 };
 
@@ -111,43 +109,41 @@ export const MobileSidebar = ({
 }: React.ComponentProps<'div'>) => {
   const { open, setOpen } = useSidebar();
   return (
-    <>
-      <div
-        className={cn(
-          'flex h-10 w-full flex-row items-center justify-between bg-neutral-800 px-4 py-4 md:hidden'
-        )}
-        {...props}
-      >
-        <div className="z-20 flex w-full justify-end">
-          <IconMenu2 className="text-primary" onClick={() => setOpen(!open)} />
-        </div>
-        <AnimatePresence>
-          {open && (
-            <motion.div
-              initial={{ x: '-100%', opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: '-100%', opacity: 0 }}
-              transition={{
-                duration: 0.3,
-                ease: 'easeInOut',
-              }}
-              className={cn(
-                'fixed inset-0 z-[100] flex h-full w-full flex-col justify-between bg-neutral-900 p-10',
-                className
-              )}
-            >
-              <div
-                className="absolute top-10 right-10 z-50 text-neutral-200"
-                onClick={() => setOpen(!open)}
-              >
-                <IconX />
-              </div>
-              {children}
-            </motion.div>
-          )}
-        </AnimatePresence>
+    <div
+      className={cn(
+        'flex h-10 w-full flex-row items-center justify-between bg-neutral-800 px-4 py-4 md:hidden'
+      )}
+      {...props}
+    >
+      <div className="z-20 flex w-full justify-end">
+        <IconMenu2 className="text-primary" onClick={() => setOpen(!open)} />
       </div>
-    </>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ x: '-100%', opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: '-100%', opacity: 0 }}
+            transition={{
+              duration: 0.3,
+              ease: 'easeInOut',
+            }}
+            className={cn(
+              'fixed inset-0 z-100 flex h-full w-full flex-col justify-between bg-neutral-900 p-10',
+              className
+            )}
+          >
+            <button
+              className="absolute top-10 right-10 z-50 text-neutral-200"
+              onClick={() => setOpen(!open)}
+            >
+              <IconX />
+            </button>
+            {children}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 };
 
@@ -175,7 +171,7 @@ export const SidebarLink = ({
           display: animate ? (open ? 'inline-block' : 'none') : 'inline-block',
           opacity: animate ? (open ? 1 : 0) : 1,
         }}
-        className="!m-0 inline-block !p-0 text-sm font-semibold whitespace-pre text-white capitalize transition duration-150 group-hover/sidebar:translate-x-1"
+        className="group-hover/sidebar:text-primary !m-0 inline-block !p-0 text-sm font-semibold whitespace-pre capitalize transition duration-150 group-hover/sidebar:translate-x-1"
       >
         {link.label}
       </motion.span>

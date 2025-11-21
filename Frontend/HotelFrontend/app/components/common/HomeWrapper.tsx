@@ -11,8 +11,8 @@ const HomeWrapper = ({ children }: HomeWrapperProps) => {
     <div className="relative min-h-full bg-black/[0.96]">
       <div
         className={cn(
-          'pointer-events-none absolute inset-0 [background-size:40px_40px] select-none',
-          '[background-image:linear-gradient(to_right,rgba(255,255,255,0.07)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.07)_1px,transparent_1px)]'
+          'pointer-events-none absolute inset-0 bg-size-[40px_40px] select-none',
+          'bg-[linear-gradient(to_right,rgba(255,255,255,0.07)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.07)_1px,transparent_1px)]'
         )}
       />
       <div className="m-2 w-full lg:m-auto lg:w-3/4">

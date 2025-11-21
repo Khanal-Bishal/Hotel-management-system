@@ -48,7 +48,6 @@ const Navbar = ({ routes }: NavbarProps) => {
         <Link to="/login">
           <IconWrapper size="sm">
             <Avatar className="cursor-pointer">
-              {/* <AvatarImage src="https://github.com/shadcn.png" /> */}
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
           </IconWrapper>
