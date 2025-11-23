@@ -8,7 +8,7 @@ interface HomeWrapperProps extends PropsWithChildren {}
 
 const HomeWrapper = ({ children }: HomeWrapperProps) => {
   return (
-    <div className="relative min-h-full bg-black/[0.96]">
+    <div className="relative min-h-full bg-black/96">
       <div
         className={cn(
           'pointer-events-none absolute inset-0 bg-size-[40px_40px] select-none',

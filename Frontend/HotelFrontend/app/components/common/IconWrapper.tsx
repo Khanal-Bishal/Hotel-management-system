@@ -56,7 +56,7 @@ const IconWrapper = ({
     <>
       {variant === 'default' ? (
         <>
-          <div className="absolute inset-[1px] rounded-full bg-gradient-to-b from-[#2a2a2a] to-[#323232]" />
+          <div className="absolute inset-px rounded-full bg-gradient-to-b from-[#2a2a2a] to-[#323232]" />
           <div className="absolute inset-0 rounded-full shadow-[inset_0px_1px_3px_rgba(255,255,255,0.3),inset_0px_0px_2px_rgba(255,255,255,0.2),inset_0px_-2px_4px_rgba(255,255,255,0.2)]" />
           <div className="absolute inset-0 rounded-full bg-gradient-to-b from-transparent via-transparent to-white/10" />
         </>

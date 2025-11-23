@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '../ui/button';
 import ColorfulText from '../common/ColorfulText';
-import { TextGenerateEffect } from 'components/ui/text-generate-effect';
+import { TextGenerateEffect } from '../ui/text-generate-effect';
 const words = `Enhance hotel operations with our intuitive dashboard for staff
           scheduling, attendance tracking, and performance insights.`;
 

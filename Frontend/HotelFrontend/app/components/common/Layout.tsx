@@ -3,7 +3,6 @@ import { useState, type PropsWithChildren } from 'react';
 import { IconUserBolt } from '@tabler/icons-react';
 import { motion } from 'motion/react';
 import { cn } from '~/lib/utils';
-import { Sidebar, SidebarBody, SidebarLink } from 'components/ui/sidebar';
 import { Link, useLocation } from 'react-router';
 import HotelLogo from '~/components/common/Logo';
 import {
@@ -14,6 +13,7 @@ import {
   UserRoundSearch,
   UsersRound,
 } from 'lucide-react';
+import { Sidebar, SidebarBody, SidebarLink } from '../ui/sidebar';
 
 interface LayoutProps extends PropsWithChildren {}
 
@@ -65,13 +65,13 @@ export function Layout({ children }: LayoutProps) {
       />
       <div
         className={cn(
-          'flex w-full flex-1 flex-col overflow-hidden rounded-md border md:flex-row',
-          'h-screen'
+          'flex w-full flex-1 flex-col rounded-md border md:flex-row',
+          'h-full'
         )}
       >
         <Sidebar open={open} setOpen={setOpen}>
           <SidebarBody className="justify-between gap-10">
-            <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
+            <div className="flex h-full flex-1 flex-col overflow-x-hidden overflow-y-auto">
               {open ? <Logo /> : <LogoIcon />}
               <div className="mt-8 flex flex-col gap-2">
                 {links.map((link, idx) => (
@@ -107,7 +107,7 @@ export function Layout({ children }: LayoutProps) {
             </div>
           </SidebarBody>
         </Sidebar>
-        {children}
+        <div className="mx-auto w-5/6">{children}</div>
       </div>
     </div>
   );
