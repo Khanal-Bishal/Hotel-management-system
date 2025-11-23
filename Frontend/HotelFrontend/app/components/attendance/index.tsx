@@ -1,5 +1,7 @@
+import { DataTable } from '../data-table';
+
 const AttendanceLayout = () => {
-  return <div>This is from the attendance page</div>;
+  return <div>THis is from the attendance</div>;
 };
 
 export default AttendanceLayout;

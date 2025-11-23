@@ -1,4 +1,3 @@
-import React from 'react';
 import EmployeeManagementLayout from '~/components/employeeManagement';
 
 const EmployeeManagement = () => {

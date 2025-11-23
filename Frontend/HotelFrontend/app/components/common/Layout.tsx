@@ -56,7 +56,7 @@ export function Layout({ children }: LayoutProps) {
   const currentRoute = useLocation().pathname;
 
   return (
-    <div className="relative min-h-full bg-black/96">
+    <div className="relative bg-black/96">
       <div
         className={cn(
           'pointer-events-none absolute inset-0 bg-size-[40px_40px] select-none',
@@ -66,12 +66,12 @@ export function Layout({ children }: LayoutProps) {
       <div
         className={cn(
           'flex w-full flex-1 flex-col rounded-md border md:flex-row',
-          'h-full'
+          'min-h-screen'
         )}
       >
         <Sidebar open={open} setOpen={setOpen}>
           <SidebarBody className="justify-between gap-10">
-            <div className="flex h-full flex-1 flex-col overflow-x-hidden overflow-y-auto">
+            <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
               {open ? <Logo /> : <LogoIcon />}
               <div className="mt-8 flex flex-col gap-2">
                 {links.map((link, idx) => (

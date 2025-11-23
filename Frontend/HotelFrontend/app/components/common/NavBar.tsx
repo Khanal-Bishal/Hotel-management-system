@@ -5,6 +5,7 @@ import Logo from './Logo';
 import { Bell, Search, Settings } from 'lucide-react';
 import IconWrapper from './IconWrapper';
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
+import AvatarIcon from './AvatarIcon';
 interface NavbarProps {
   routes: Record<string, string>[];
 }
@@ -46,11 +47,7 @@ const Navbar = ({ routes }: NavbarProps) => {
           <Settings className="hover:text-primary delay-100" />
         </IconWrapper>
         <Link to="/login">
-          <IconWrapper size="sm">
-            <Avatar className="cursor-pointer">
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-          </IconWrapper>
+          <AvatarIcon imgSrc="" fallback="BK" />
         </Link>
       </div>
     </div>
