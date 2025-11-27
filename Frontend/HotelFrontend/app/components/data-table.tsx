@@ -98,18 +98,17 @@ import {
   TableRow,
 } from '~/components/ui/table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs';
-import { AlarmClockCheck, Clock10, Clock12 } from 'lucide-react';
+import { AlarmClockCheck } from 'lucide-react';
 
 export const schema = z.object({
   id: z.number(),
-  name: z.string(), //header
-  jobTitle: z.string(), //type
-  department: z.string(), //target
-  employmentType: z.string(), //status
-  office: z.string(), //reviewer
+  name: z.string(),
+  jobTitle: z.string(),
+  department: z.string(),
+  employmentType: z.string(),
+  office: z.string(),
 });
 
-// Create a separate component for the drag handle
 function DragHandle({ id }: { id: number }) {
   const { attributes, listeners } = useSortable({
     id,
@@ -207,41 +206,6 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
   },
 
   {
-    accessorKey: 'office',
-    header: 'Office',
-    cell: ({ row }) => {
-      const isAssigned = row.original.office !== 'Assign reviewer';
-
-      if (isAssigned) {
-        return row.original.office;
-      }
-
-      return (
-        <>
-          <Label htmlFor={`${row.original.id}-office`} className="sr-only">
-            Office
-          </Label>
-          <Select>
-            <SelectTrigger
-              className="w-38 **:data-[slot=select-value]:block **:data-[slot=select-value]:truncate"
-              size="sm"
-              id={`${row.original.id}-reviewer`}
-            >
-              <SelectValue placeholder="Assign reviewer" />
-            </SelectTrigger>
-            <SelectContent align="end">
-              <SelectItem value="Eddie Lake">Eddie Lake</SelectItem>
-              <SelectItem value="Jamik Tashpulatov">
-                Jamik Tashpulatov
-              </SelectItem>
-            </SelectContent>
-          </Select>
-        </>
-      );
-    },
-  },
-
-  {
     id: 'actions',
     cell: () => (
       <DropdownMenu>
@@ -256,7 +220,6 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-32">
-          <DropdownMenuItem>Edit</DropdownMenuItem>
           <DropdownMenuItem>Make a copy</DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>
@@ -424,10 +387,6 @@ export function DataTable({
                 })}
             </DropdownMenuContent>
           </DropdownMenu>
-          {/* <Button variant="outline" size="sm">
-            <IconPlus />
-            <span className="hidden lg:inline">Add Section</span>
-          </Button> */}
         </div>
       </div>
       <TabsContent
@@ -583,28 +542,32 @@ export function DataTable({
 }
 
 const chartData = [
-  { month: 'January', desktop: 186, mobile: 80 },
-  { month: 'February', desktop: 305, mobile: 200 },
-  { month: 'March', desktop: 237, mobile: 120 },
-  { month: 'April', desktop: 73, mobile: 190 },
-  { month: 'May', desktop: 209, mobile: 130 },
-  { month: 'June', desktop: 214, mobile: 140 },
+  { quarter: 'Quarter-1', attendance: 130, leave: 10 },
+  { quarter: 'Quarter-2', attendance: 110, leave: 20 },
+  { quarter: 'Quarter-3', attendance: 107, leave: 23 },
+  { quarter: 'Quarter-4', attendance: 127, leave: 13 },
 ];
 
 const chartConfig = {
-  desktop: {
-    label: 'Desktop',
+  attendance: {
+    label: 'Attendance',
     color: 'var(--primary)',
   },
-  mobile: {
-    label: 'Mobile',
+  leave: {
+    label: 'Leave',
     color: 'var(--primary)',
   },
 } satisfies ChartConfig;
 
 function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
-  const isMobile = useIsMobile();
+  const employmentType =
+    item.employmentType === 'full time'
+      ? 'Full time'
+      : item.employmentType === 'part time'
+        ? 'Part time'
+        : item.employmentType;
 
+  const isMobile = useIsMobile();
   return (
     <Drawer direction={isMobile ? 'bottom' : 'right'}>
       <DrawerTrigger asChild>
@@ -616,7 +579,7 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
         <DrawerHeader className="gap-1">
           <DrawerTitle>{item.name}</DrawerTitle>
           <DrawerDescription>
-            Showing total visitors for the last 6 months
+            Showing total attendance and leave for 4 quarters
           </DrawerDescription>
         </DrawerHeader>
         <div className="flex flex-col gap-4 overflow-y-auto px-4 text-sm">
@@ -633,7 +596,7 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
                 >
                   <CartesianGrid vertical={false} />
                   <XAxis
-                    dataKey="month"
+                    dataKey="quarter"
                     tickLine={false}
                     axisLine={false}
                     tickMargin={8}
@@ -645,19 +608,19 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
                     content={<ChartTooltipContent indicator="dot" />}
                   />
                   <Area
-                    dataKey="mobile"
+                    dataKey="attendance"
                     type="natural"
-                    fill="var(--color-mobile)"
+                    fill="var(--color-attendance)"
                     fillOpacity={0.6}
-                    stroke="var(--color-mobile)"
+                    stroke="var(--color-attendance)"
                     stackId="a"
                   />
                   <Area
-                    dataKey="desktop"
+                    dataKey="leave"
                     type="natural"
-                    fill="var(--color-desktop)"
+                    fill="var(--color-leave)"
                     fillOpacity={0.4}
-                    stroke="var(--color-desktop)"
+                    stroke="var(--color-leave)"
                     stackId="a"
                   />
                 </AreaChart>
@@ -684,62 +647,51 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-3">
-                <Label htmlFor="type">Type</Label>
-                <Select defaultValue={item.jobTitle}>
-                  <SelectTrigger id="type" className="w-full">
-                    <SelectValue placeholder="Select a type" />
+                <Label htmlFor="employmentType">Employment Type</Label>
+                <Select defaultValue={employmentType}>
+                  <SelectTrigger id="employmentType" className="w-full">
+                    <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Table of Contents">
-                      Table of Contents
-                    </SelectItem>
-                    <SelectItem value="Executive Summary">
-                      Executive Summary
-                    </SelectItem>
-                    <SelectItem value="Technical Approach">
-                      Technical Approach
-                    </SelectItem>
-                    <SelectItem value="Design">Design</SelectItem>
-                    <SelectItem value="Capabilities">Capabilities</SelectItem>
-                    <SelectItem value="Focus Documents">
-                      Focus Documents
-                    </SelectItem>
-                    <SelectItem value="Narrative">Narrative</SelectItem>
-                    <SelectItem value="Cover Page">Cover Page</SelectItem>
+                    <SelectItem value="Full time">Full time</SelectItem>
+                    <SelectItem value="Part time">Part time</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
-              <div className="flex flex-col gap-3">
-                <Label htmlFor="status">Status</Label>
-                <Select defaultValue={item.employmentType}>
-                  <SelectTrigger id="status" className="w-full">
-                    <SelectValue placeholder="Select a status" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Done">Done</SelectItem>
-                    <SelectItem value="In Progress">In Progress</SelectItem>
-                    <SelectItem value="Not Started">Not Started</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
+
               <div className="flex flex-col gap-3">
                 <Label htmlFor="department">Department</Label>
-                <Input id="department" defaultValue={item.department} />
-              </div>
-              <div className="flex flex-col gap-3">
-                {/* <Label htmlFor="limit">Limit</Label> */}
-                {/* <Input id="limit" defaultValue={item.limit} /> */}
+                <Select defaultValue={item.department}>
+                  <SelectTrigger id="department" className="w-full">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="hr">HR</SelectItem>
+                    <SelectItem value="culinary">Culinary</SelectItem>
+                    <SelectItem value="administration">
+                      Administration
+                    </SelectItem>
+                    <SelectItem value="housekeeping">House Keeping</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
-            <div className="flex flex-col gap-3">
-              <Label htmlFor="reviewer">Reviewer</Label>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex flex-col gap-3">
+                <Label htmlFor="department">Job title</Label>
+                <Input
+                  id="department"
+                  defaultValue={item.jobTitle}
+                  className="capitalize"
+                />
+              </div>
+              <div className="flex flex-col gap-3"></div>
             </div>
           </form>
         </div>
         <DrawerFooter>
-          <Button>Submit</Button>
+          <Button>Update</Button>
           <DrawerClose asChild>
             <Button variant="outline">Done</Button>
           </DrawerClose>

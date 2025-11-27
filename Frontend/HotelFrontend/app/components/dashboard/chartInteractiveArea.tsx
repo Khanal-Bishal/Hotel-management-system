@@ -88,7 +88,7 @@ export function ChartAreaInteractive() {
             value={timeRange}
             onValueChange={setTimeRange}
             variant="outline"
-            className="hidden *:data-[slot=toggle-group-item]:!px-4 @[760px]/card:flex"
+            className="hidden *:data-[slot=toggle-group-item]:px-4! @[760px]/card:flex"
           >
             <ToggleGroupItem value="90d">Last 3 months</ToggleGroupItem>
             <ToggleGroupItem value="30d">Last 30 days</ToggleGroupItem>
@@ -127,7 +127,7 @@ export function ChartAreaInteractive() {
                 <stop
                   offset="5%"
                   stopColor="var(--color-desktop)"
-                  stopOpacity={1.0}
+                  stopOpacity={1}
                 />
                 <stop
                   offset="95%"
@@ -180,29 +180,29 @@ export function ChartAreaInteractive() {
             <Area
               dataKey="housekeeping"
               type="natural"
-              fill="url(#fillHousekeeping)"
-              stroke="var(--color-housekeeping)"
+              fill="oklch(0.6455 0.1943 41.08)"
+              stroke="pink"
               stackId="a"
             />
             <Area
               dataKey="culinary"
               type="natural"
-              fill="url(#fillCulinary)"
-              stroke="var(--color-culinary)"
+              fill="oklch(0.6455 0.1943 41.08)"
+              stroke="pink"
               stackId="a"
             />
             <Area
               dataKey="hr"
               type="natural"
-              fill="url(#fillHr)"
-              stroke="var(--color-hr)"
+              fill="oklch(0.6455 0.1943 41.08)"
+              stroke="pink"
               stackId="a"
             />
             <Area
-              dataKey="Administration"
+              dataKey="administration"
               type="natural"
-              fill="url(#fillAdministration)"
-              stroke="var(--color-Administration)"
+              fill="oklch(0.6455 0.1943 41.08)"
+              stroke="pink"
               stackId="a"
             />
           </AreaChart>
