@@ -82,6 +82,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import AvatarIcon from '../common/AvatarIcon';
 import { Spacer } from '../common/Spacer';
+import { getDepartmentIcon } from '../performance/PerformanceRanking';
 
 interface EmployeeCardProps {
   id: string | number;
@@ -112,25 +113,6 @@ const EmployeeCard = ({
     .map((n) => n[0])
     .join('')
     .toUpperCase();
-
-  const getDepartmentIcon = (department: string) => {
-    switch (department.toLowerCase()) {
-      case 'culinary':
-        return <ChefHat className="text-primary size-5" />;
-
-      case 'hr':
-        return <Users className="text-primary size-5" />;
-
-      case 'administration':
-        return <ClipboardList className="text-primary size-5" />;
-
-      case 'housekeeping':
-        return <Home className="text-primary size-5" />;
-
-      default:
-        return null;
-    }
-  };
 
   return (
     <Card className="w-full max-w-sm overflow-hidden rounded-2xl">

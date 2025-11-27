@@ -45,11 +45,6 @@ export function Layout({ children }: LayoutProps) {
       href: '/edetails',
       icon: <UserRoundSearch className="text-primary size-5 shrink-0" />,
     },
-    {
-      label: 'Settings',
-      href: '/settings',
-      icon: <Settings className="text-primary size-5 shrink-0" />,
-    },
   ];
 
   const [open, setOpen] = useState(false);

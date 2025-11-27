@@ -14,6 +14,16 @@ const Routes = [
     currentRoute: '/performance',
     routeName: 'Performance',
   },
+  {
+    to: '/emanagement',
+    currentRoute: '/emanagement',
+    routeName: 'Employee Management',
+  },
+  {
+    to: '/edetails',
+    currentRoute: '/edetails',
+    routeName: 'Details',
+  },
 ];
 
 export default Routes;

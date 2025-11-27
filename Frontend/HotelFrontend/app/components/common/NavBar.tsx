@@ -4,7 +4,6 @@ import { cn } from '~/lib/utils';
 import Logo from './Logo';
 import { Bell, Search, Settings } from 'lucide-react';
 import IconWrapper from './IconWrapper';
-import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
 import AvatarIcon from './AvatarIcon';
 interface NavbarProps {
   routes: Record<string, string>[];
