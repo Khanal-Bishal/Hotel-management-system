@@ -1,4 +1,3 @@
-import React from 'react';
 import { PerformanceChart } from './PerformanceChart';
 import { PerformanceRanking } from './PerformanceRanking';
 import { PerformanceTable } from './PerformanceTable';

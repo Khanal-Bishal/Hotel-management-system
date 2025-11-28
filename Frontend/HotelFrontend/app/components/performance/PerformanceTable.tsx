@@ -1,5 +1,3 @@
-'use client';
-
 import * as React from 'react';
 import {
   type ColumnDef,
@@ -36,14 +34,17 @@ import {
   TableRow,
 } from '~/components/ui/table';
 
-import data from '../common/data.json';
+import data from '~/../public/data/EmployeeData.json';
 
 export type Performance = {
   id: string | number;
   name: string;
   jobTitle: string;
   email: string;
-  performance_review: string | number;
+  performance: {
+    performance_review: number;
+    performance_percent: number;
+  };
 };
 
 export const columns: ColumnDef<Performance>[] = [
@@ -98,7 +99,7 @@ export const columns: ColumnDef<Performance>[] = [
     },
   },
   {
-    accessorKey: 'performance_review',
+    accessorKey: 'performance',
     header: ({ column }) => {
       return (
         <div className="flex justify-center">
@@ -113,10 +114,11 @@ export const columns: ColumnDef<Performance>[] = [
         </div>
       );
     },
-    cell: ({ row }) => (
-      <div className="text-center lowercase">
-        {row.getValue('performance_review')}
-      </div>
+
+    accessorFn: (row) => row.performance.performance_review,
+
+    cell: ({ getValue }) => (
+      <div className="text-center">{getValue<number>()}</div>
     ),
   },
   {

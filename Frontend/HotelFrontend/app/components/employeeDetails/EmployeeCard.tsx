@@ -1,85 +1,6 @@
-// import { Badge } from '~/components/ui/badge';
-// import {
-//   Card,
-//   CardAction,
-//   CardDescription,
-//   CardFooter,
-//   CardHeader,
-//   CardTitle,
-// } from '~/components/ui/card';
-// import { AlarmClockCheck, Cookie } from 'lucide-react';
-// import { DEPARTMENT } from '~/types/Department';
-// import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
-// import AvatarIcon from '../common/AvatarIcon';
-
-// interface EmployeeCardProps {
-//   id: string | number;
-//   name: string;
-//   jobTitle: string;
-//   employmentType: string;
-//   department: string;
-//   office: string;
-//   email: string;
-//   phone: string | number;
-//   review: string | number
-// }
-
-// const EmployeeCard = ({
-//   id,
-//   name,
-//   jobTitle,
-//   employmentType,
-//   department,
-//   office,
-//   email,
-//   phone,
-//   review
-// }: EmployeeCardProps) => {
-//   return (
-//     <Card className="@container/card">
-//       <CardHeader>
-//         <AvatarIcon imgSrc="" fallback="BK" />
-
-//         <CardDescription className="capitalize">{jobTitle}</CardDescription>
-//         <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl"></CardTitle>
-//         <CardAction>
-//           <Badge
-//             variant="outline"
-//             className="text-muted-foreground px-1.5 capitalize"
-//           >
-//             {employmentType === 'full time' ? (
-//               <AlarmClockCheck className="fill-green-600" />
-//             ) : (
-//               <AlarmClockCheck className="fill-red-500" />
-//             )}
-//             {employmentType}
-//           </Badge>
-//         </CardAction>
-//       </CardHeader>
-//       <CardFooter className="flex-col items-start gap-1.5 text-sm">
-//         <div className="line-clamp-1 flex gap-2 font-medium">{department}</div>
-//         {department == DEPARTMENT.CULINARY && <Cookie />}
-//         <div className="text-muted-foreground">{email}</div>
-//         <div className="text-muted-foreground">{phone}</div>
-//       </CardFooter>
-//     </Card>
-//   );
-// };
-
-// export default EmployeeCard;
-
 import { Badge } from '~/components/ui/badge';
-import { Card, CardDescription } from '~/components/ui/card';
-import {
-  AlarmClockCheck,
-  ChefHat,
-  ClipboardList,
-  Home,
-  Mail,
-  Phone,
-  Users,
-} from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
+import { Card } from '~/components/ui/card';
+import { AlarmClockCheck, Mail, Phone } from 'lucide-react';
 import AvatarIcon from '../common/AvatarIcon';
 import { Spacer } from '../common/Spacer';
 import { getDepartmentIcon } from '../performance/PerformanceRanking';
@@ -105,7 +26,6 @@ const EmployeeCard = ({
   office,
   email,
   phone,
-  imgSrc = '',
 }: EmployeeCardProps) => {
   const safeName = name || 'Employee';
   const initials = safeName

@@ -1,7 +1,8 @@
-import { DataTable } from '../data-table';
+import data from '~/../public/data/EmployeeData.json';
+import { AttendanceTable } from './AttendanceTable';
 
 const AttendanceLayout = () => {
-  return <div>THis is from the attendance</div>;
+  return <AttendanceTable data={data} />;
 };
 
 export default AttendanceLayout;

@@ -1,11 +1,10 @@
-import { DataTable } from '../data-table';
-
-import data from '../common/data.json';
+import data from '~/../public/data/EmployeeData.json';
+import { EmployeeManagementTable } from './EmployeeManagementTable';
 
 const EmployeeManagementLayout = () => {
   return (
     <div>
-      <DataTable data={data} />
+      <EmployeeManagementTable data={data} />
     </div>
   );
 };

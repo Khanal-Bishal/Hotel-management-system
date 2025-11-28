@@ -1,0 +1,559 @@
+[
+  {
+    "id": 1,
+    "name": "Ava Smith",
+    "jobTitle": "house keeper",
+    "employmentType": "full time",
+    "department": "housekeeping",
+    "office": "Estates Tower",
+    "email": "avasmith@hotel.org",
+    "phone": "(232)-165-4879",
+    "shift": "morning",
+    "attendance": {
+      "quarters": [
+        { "quarter": "Q1", "attendance_days": 58, "leave_days": 4 },
+        { "quarter": "Q2", "attendance_days": 60, "leave_days": 2 },
+        { "quarter": "Q3", "attendance_days": 57, "leave_days": 5 },
+        { "quarter": "Q4", "attendance_days": 59, "leave_days": 3 }
+      ],
+      "total_attendance_days": 234,
+      "attendance_percent": 92
+    },
+    "performance": { "performance_review": 88, "performance_percent": 88 },
+    "total_work_hours": 1920
+  },
+  {
+    "id": 2220,
+    "name": "Liam Johnson",
+    "jobTitle": "accountant",
+    "employmentType": "part time",
+    "department": "administration",
+    "office": "Sky Building",
+    "email": "liamjohnson@example.com",
+    "phone": "(527)-255-5793",
+    "shift": "evening",
+    "attendance": {
+      "quarters": [
+        { "quarter": "Q1", "attendance_days": 40, "leave_days": 8 },
+        { "quarter": "Q2", "attendance_days": 42, "leave_days": 6 },
+        { "quarter": "Q3", "attendance_days": 39, "leave_days": 9 },
+        { "quarter": "Q4", "attendance_days": 41, "leave_days": 7 }
+      ],
+      "total_attendance_days": 162,
+      "attendance_percent": 68
+    },
+    "performance": { "performance_review": 78, "performance_percent": 78 },
+    "total_work_hours": 1040
+  },
+  {
+    "id": 3,
+    "name": "Emma Martinez",
+    "jobTitle": "waiter",
+    "employmentType": "full time",
+    "department": "culinary",
+    "office": "Main Dining",
+    "email": "emmamartinez@company.com",
+    "phone": "(958)-649-6861",
+    "shift": "evening",
+    "attendance": {
+      "quarters": [
+        { "quarter": "Q1", "attendance_days": 60, "leave_days": 2 },
+        { "quarter": "Q2", "attendance_days": 62, "leave_days": 1 },
+        { "quarter": "Q3", "attendance_days": 58, "leave_days": 4 },
+        { "quarter": "Q4", "attendance_days": 61, "leave_days": 2 }
+      ],
+      "total_attendance_days": 241,
+      "attendance_percent": 95
+    },
+    "performance": { "performance_review": 98, "performance_percent": 98 },
+    "total_work_hours": 2010
+  },
+  {
+    "id": 4,
+    "name": "Daniel Wang",
+    "jobTitle": "cook",
+    "employmentType": "part time",
+    "department": "culinary",
+    "office": "Kitchen Block",
+    "email": "danielwang@corp.com",
+    "phone": "(469)-961-2929",
+    "shift": "night",
+    "attendance": {
+      "quarters": [
+        { "quarter": "Q1", "attendance_days": 42, "leave_days": 6 },
+        { "quarter": "Q2", "attendance_days": 44, "leave_days": 4 },
+        { "quarter": "Q3", "attendance_days": 40, "leave_days": 8 },
+        { "quarter": "Q4", "attendance_days": 45, "leave_days": 3 }
+      ],
+      "total_attendance_days": 171,
+      "attendance_percent": 71
+    },
+    "performance": { "performance_review": 53, "performance_percent": 53 },
+    "total_work_hours": 980
+  },
+
+  {
+    "id": 5,
+    "name": "Sophia Lee",
+    "jobTitle": "head chef",
+    "employmentType": "full time",
+    "department": "culinary",
+    "office": "Kitchen Block",
+    "email": "sophialee@hotel.org",
+    "phone": "(907)-360-1726",
+    "shift": "night",
+    "attendance": {
+      "quarters": [
+        { "quarter": "Q1", "attendance_days": 59, "leave_days": 3 },
+        { "quarter": "Q2", "attendance_days": 61, "leave_days": 1 },
+        { "quarter": "Q3", "attendance_days": 58, "leave_days": 4 },
+        { "quarter": "Q4", "attendance_days": 60, "leave_days": 2 }
+      ],
+      "total_attendance_days": 238,
+      "attendance_percent": 94
+    },
+    "performance": { "performance_review": 84, "performance_percent": 84 },
+    "total_work_hours": 1980
+  },
+
+  {
+    "id": 6,
+    "name": "Noah Brown",
+    "jobTitle": "house keeper",
+    "employmentType": "full time",
+    "department": "housekeeping",
+    "office": "Club Lounge",
+    "email": "noahbrown@company.com",
+    "phone": "(637)-936-1781",
+    "shift": "morning",
+    "attendance": {
+      "quarters": [
+        { "quarter": "Q1", "attendance_days": 55, "leave_days": 5 },
+        { "quarter": "Q2", "attendance_days": 57, "leave_days": 3 },
+        { "quarter": "Q3", "attendance_days": 54, "leave_days": 6 },
+        { "quarter": "Q4", "attendance_days": 56, "leave_days": 4 }
+      ],
+      "total_attendance_days": 222,
+      "attendance_percent": 88
+    },
+    "performance": { "performance_review": 69, "performance_percent": 69 },
+    "total_work_hours": 1850
+  },
+
+  {
+    "id": 7,
+    "name": "Mia Davis",
+    "jobTitle": "waiter",
+    "employmentType": "part time",
+    "department": "culinary",
+    "office": "Garden House",
+    "email": "miadavis@hotel.org",
+    "phone": "(952)-972-4095",
+    "shift": "evening",
+    "attendance": {
+      "quarters": [
+        { "quarter": "Q1", "attendance_days": 41, "leave_days": 7 },
+        { "quarter": "Q2", "attendance_days": 43, "leave_days": 5 },
+        { "quarter": "Q3", "attendance_days": 40, "leave_days": 8 },
+        { "quarter": "Q4", "attendance_days": 44, "leave_days": 4 }
+      ],
+      "total_attendance_days": 168,
+      "attendance_percent": 70
+    },
+    "performance": { "performance_review": 67, "performance_percent": 67 },
+    "total_work_hours": 1020
+  },
+
+  {
+    "id": 8,
+    "name": "Oliver Wilson",
+    "jobTitle": "accountant",
+    "employmentType": "full time",
+    "department": "hr",
+    "office": "Estates Tower",
+    "email": "oliverwilson@hotel.org",
+    "phone": "(475)-795-3849",
+    "shift": "evening",
+    "attendance": {
+      "quarters": [
+        { "quarter": "Q1", "attendance_days": 56, "leave_days": 6 },
+        { "quarter": "Q2", "attendance_days": 58, "leave_days": 4 },
+        { "quarter": "Q3", "attendance_days": 55, "leave_days": 7 },
+        { "quarter": "Q4", "attendance_days": 57, "leave_days": 5 }
+      ],
+      "total_attendance_days": 226,
+      "attendance_percent": 87
+    },
+    "performance": { "performance_review": 53, "performance_percent": 53 },
+    "total_work_hours": 1810
+  },
+  {
+    "id": 9,
+    "name": "Charlotte White",
+    "jobTitle": "cook",
+    "employmentType": "full time",
+    "department": "culinary",
+    "office": "Kitchen Block",
+    "email": "charlottewhite@company.com",
+    "phone": "(676)-742-5442",
+    "shift": "night",
+    "attendance": {
+      "quarters": [
+        { "quarter": "Q1", "attendance_days": 57, "leave_days": 5 },
+        { "quarter": "Q2", "attendance_days": 59, "leave_days": 3 },
+        { "quarter": "Q3", "attendance_days": 56, "leave_days": 6 },
+        { "quarter": "Q4", "attendance_days": 58, "leave_days": 4 }
+      ],
+      "total_attendance_days": 230,
+      "attendance_percent": 89
+    },
+    "performance": { "performance_review": 75, "performance_percent": 75 },
+    "total_work_hours": 1890
+  },
+  {
+    "id": 10,
+    "name": "James Thompson",
+    "jobTitle": "head chef",
+    "employmentType": "part time",
+    "department": "culinary",
+    "office": "Kitchen Block",
+    "email": "jamesthompson@example.com",
+    "phone": "(592)-764-9474",
+    "shift": "night",
+    "attendance": {
+      "quarters": [
+        { "quarter": "Q1", "attendance_days": 43, "leave_days": 7 },
+        { "quarter": "Q2", "attendance_days": 45, "leave_days": 5 },
+        { "quarter": "Q3", "attendance_days": 41, "leave_days": 9 },
+        { "quarter": "Q4", "attendance_days": 44, "leave_days": 6 }
+      ],
+      "total_attendance_days": 173,
+      "attendance_percent": 72
+    },
+    "performance": { "performance_review": 60, "performance_percent": 60 },
+    "total_work_hours": 990
+  },
+  {
+    "id": 11,
+    "name": "Amelia Harris",
+    "jobTitle": "waiter",
+    "employmentType": "full time",
+    "department": "culinary",
+    "office": "River Hall",
+    "email": "ameliaharris@company.com",
+    "phone": "(207)-843-7917",
+    "shift": "evening",
+    "attendance": {
+      "quarters": [
+        { "quarter": "Q1", "attendance_days": 55, "leave_days": 7 },
+        { "quarter": "Q2", "attendance_days": 57, "leave_days": 5 },
+        { "quarter": "Q3", "attendance_days": 54, "leave_days": 8 },
+        { "quarter": "Q4", "attendance_days": 56, "leave_days": 6 }
+      ],
+      "total_attendance_days": 222,
+      "attendance_percent": 86
+    },
+    "performance": { "performance_review": 56, "performance_percent": 56 },
+    "total_work_hours": 1845
+  },
+  {
+    "id": 12,
+    "name": "Benjamin Clark",
+    "jobTitle": "accountant",
+    "employmentType": "part time",
+    "department": "administration",
+    "office": "Estates Tower",
+    "email": "benjaminclark@hotel.org",
+    "phone": "(965)-259-6241",
+    "shift": "evening",
+    "attendance": {
+      "quarters": [
+        { "quarter": "Q1", "attendance_days": 42, "leave_days": 6 },
+        { "quarter": "Q2", "attendance_days": 44, "leave_days": 4 },
+        { "quarter": "Q3", "attendance_days": 40, "leave_days": 8 },
+        { "quarter": "Q4", "attendance_days": 43, "leave_days": 5 }
+      ],
+      "total_attendance_days": 169,
+      "attendance_percent": 71
+    },
+    "performance": { "performance_review": 68, "performance_percent": 68 },
+    "total_work_hours": 1010
+  },
+  {
+    "id": 13,
+    "name": "Zoe Lewis",
+    "jobTitle": "house keeper",
+    "employmentType": "part time",
+    "department": "housekeeping",
+    "office": "Sky Building",
+    "email": "zoelewis@example.com",
+    "phone": "(243)-956-4579",
+    "shift": "morning",
+    "attendance": {
+      "quarters": [
+        { "quarter": "Q1", "attendance_days": 46, "leave_days": 4 },
+        { "quarter": "Q2", "attendance_days": 48, "leave_days": 2 },
+        { "quarter": "Q3", "attendance_days": 45, "leave_days": 5 },
+        { "quarter": "Q4", "attendance_days": 47, "leave_days": 3 }
+      ],
+      "total_attendance_days": 186,
+      "attendance_percent": 88
+    },
+    "performance": { "performance_review": 96, "performance_percent": 96 },
+    "total_work_hours": 1140
+  },
+  {
+    "id": 14,
+    "name": "Elijah Hall",
+    "jobTitle": "cook",
+    "employmentType": "full time",
+    "department": "culinary",
+    "office": "Kitchen Block",
+    "email": "elijahhall@company.com",
+    "phone": "(456)-887-5008",
+    "shift": "night",
+    "attendance": {
+      "quarters": [
+        { "quarter": "Q1", "attendance_days": 58, "leave_days": 4 },
+        { "quarter": "Q2", "attendance_days": 60, "leave_days": 2 },
+        { "quarter": "Q3", "attendance_days": 57, "leave_days": 5 },
+        { "quarter": "Q4", "attendance_days": 59, "leave_days": 3 }
+      ],
+      "total_attendance_days": 234,
+      "attendance_percent": 92
+    },
+    "performance": { "performance_review": 86, "performance_percent": 86 },
+    "total_work_hours": 1940
+  },
+
+  {
+    "id": 15,
+    "name": "Isabella Young",
+    "jobTitle": "waiter",
+    "employmentType": "part time",
+    "department": "culinary",
+    "office": "Seaside Hall",
+    "email": "isabellayoung@example.com",
+    "phone": "(471)-607-2457",
+    "shift": "evening",
+    "attendance": {
+      "quarters": [
+        { "quarter": "Q1", "attendance_days": 44, "leave_days": 6 },
+        { "quarter": "Q2", "attendance_days": 46, "leave_days": 4 },
+        { "quarter": "Q3", "attendance_days": 43, "leave_days": 7 },
+        { "quarter": "Q4", "attendance_days": 45, "leave_days": 5 }
+      ],
+      "total_attendance_days": 178,
+      "attendance_percent": 78
+    },
+    "performance": { "performance_review": 99, "performance_percent": 99 },
+    "total_work_hours": 1120
+  },
+  {
+    "id": 16,
+    "name": "Mason King",
+    "jobTitle": "house keeper",
+    "employmentType": "full time",
+    "department": "housekeeping",
+    "office": "Estates Tower",
+    "email": "masonking@company.com",
+    "phone": "(774)-491-1526",
+    "shift": "morning",
+    "attendance": {
+      "quarters": [
+        { "quarter": "Q1", "attendance_days": 56, "leave_days": 6 },
+        { "quarter": "Q2", "attendance_days": 58, "leave_days": 4 },
+        { "quarter": "Q3", "attendance_days": 55, "leave_days": 7 },
+        { "quarter": "Q4", "attendance_days": 57, "leave_days": 5 }
+      ],
+      "total_attendance_days": 226,
+      "attendance_percent": 87
+    },
+    "performance": { "performance_review": 79, "performance_percent": 79 },
+    "total_work_hours": 1880
+  },
+  {
+    "id": 17,
+    "name": "Ella Scott",
+    "jobTitle": "accountant",
+    "employmentType": "full time",
+    "department": "hr",
+    "office": "Sky Building",
+    "email": "ellascott@company.com",
+    "phone": "(869)-869-1250",
+    "shift": "evening",
+    "attendance": {
+      "quarters": [
+        { "quarter": "Q1", "attendance_days": 55, "leave_days": 7 },
+        { "quarter": "Q2", "attendance_days": 57, "leave_days": 5 },
+        { "quarter": "Q3", "attendance_days": 54, "leave_days": 8 },
+        { "quarter": "Q4", "attendance_days": 56, "leave_days": 6 }
+      ],
+      "total_attendance_days": 222,
+      "attendance_percent": 86
+    },
+    "performance": { "performance_review": 72, "performance_percent": 72 },
+    "total_work_hours": 1820
+  },
+  {
+    "id": 18,
+    "name": "Jacob Wright",
+    "jobTitle": "cook",
+    "employmentType": "part time",
+    "department": "culinary",
+    "office": "Kitchen Block",
+    "email": "jacobwright@example.com",
+    "phone": "(971)-661-8973",
+    "shift": "night",
+    "attendance": {
+      "quarters": [
+        { "quarter": "Q1", "attendance_days": 43, "leave_days": 7 },
+        { "quarter": "Q2", "attendance_days": 45, "leave_days": 5 },
+        { "quarter": "Q3", "attendance_days": 42, "leave_days": 8 },
+        { "quarter": "Q4", "attendance_days": 44, "leave_days": 6 }
+      ],
+      "total_attendance_days": 174,
+      "attendance_percent": 73
+    },
+    "performance": { "performance_review": 83, "performance_percent": 83 },
+    "total_work_hours": 1080
+  },
+  {
+    "id": 19,
+    "name": "Emily Green",
+    "jobTitle": "waiter",
+    "employmentType": "part time",
+    "department": "culinary",
+    "office": "Main Dining",
+    "email": "emilygreen@corp.com",
+    "phone": "(583)-700-1842",
+    "shift": "evening",
+    "attendance": {
+      "quarters": [
+        { "quarter": "Q1", "attendance_days": 42, "leave_days": 8 },
+        { "quarter": "Q2", "attendance_days": 44, "leave_days": 6 },
+        { "quarter": "Q3", "attendance_days": 41, "leave_days": 9 },
+        { "quarter": "Q4", "attendance_days": 43, "leave_days": 7 }
+      ],
+      "total_attendance_days": 170,
+      "attendance_percent": 70
+    },
+    "performance": { "performance_review": 71, "performance_percent": 71 },
+    "total_work_hours": 1030
+  },
+  {
+    "id": 20,
+    "name": "William Perez",
+    "jobTitle": "head chef",
+    "employmentType": "full time",
+    "department": "culinary",
+    "office": "Kitchen Block",
+    "email": "williamperez@hotel.org",
+    "phone": "(894)-191-9649",
+    "shift": "night",
+    "attendance": {
+      "quarters": [
+        { "quarter": "Q1", "attendance_days": 58, "leave_days": 4 },
+        { "quarter": "Q2", "attendance_days": 60, "leave_days": 2 },
+        { "quarter": "Q3", "attendance_days": 56, "leave_days": 6 },
+        { "quarter": "Q4", "attendance_days": 59, "leave_days": 3 }
+      ],
+      "total_attendance_days": 233,
+      "attendance_percent": 91
+    },
+    "performance": { "performance_review": 80, "performance_percent": 80 },
+    "total_work_hours": 1960
+  },
+  {
+    "id": 21,
+    "name": "Grace Adams",
+    "jobTitle": "house keeper",
+    "employmentType": "part time",
+    "department": "housekeeping",
+    "office": "Club Lounge",
+    "email": "graceadams@company.com",
+    "phone": "(496)-478-2868",
+    "shift": "morning",
+    "attendance": {
+      "quarters": [
+        { "quarter": "Q1", "attendance_days": 45, "leave_days": 5 },
+        { "quarter": "Q2", "attendance_days": 47, "leave_days": 3 },
+        { "quarter": "Q3", "attendance_days": 44, "leave_days": 6 },
+        { "quarter": "Q4", "attendance_days": 46, "leave_days": 4 }
+      ],
+      "total_attendance_days": 182,
+      "attendance_percent": 82
+    },
+    "performance": { "performance_review": 75, "performance_percent": 75 },
+    "total_work_hours": 1160
+  },
+  {
+    "id": 22,
+    "name": "Alexander Nelson",
+    "jobTitle": "accountant",
+    "employmentType": "full time",
+    "department": "administration",
+    "office": "Sky Building",
+    "email": "alexandernelson@example.com",
+    "phone": "(235)-581-4825",
+    "shift": "evening",
+    "attendance": {
+      "quarters": [
+        { "quarter": "Q1", "attendance_days": 56, "leave_days": 6 },
+        { "quarter": "Q2", "attendance_days": 58, "leave_days": 4 },
+        { "quarter": "Q3", "attendance_days": 55, "leave_days": 7 },
+        { "quarter": "Q4", "attendance_days": 57, "leave_days": 5 }
+      ],
+      "total_attendance_days": 226,
+      "attendance_percent": 87
+    },
+    "performance": { "performance_review": 62, "performance_percent": 62 },
+    "total_work_hours": 1790
+  },
+  {
+    "id": 23,
+    "name": "Harper Carter",
+    "jobTitle": "waiter",
+    "employmentType": "part time",
+    "department": "culinary",
+    "office": "Garden House",
+    "email": "harpercarter@corp.com",
+    "phone": "(652)-114-4984",
+    "shift": "evening",
+    "attendance": {
+      "quarters": [
+        { "quarter": "Q1", "attendance_days": 45, "leave_days": 5 },
+        { "quarter": "Q2", "attendance_days": 47, "leave_days": 3 },
+        { "quarter": "Q3", "attendance_days": 44, "leave_days": 6 },
+        { "quarter": "Q4", "attendance_days": 46, "leave_days": 4 }
+      ],
+      "total_attendance_days": 182,
+      "attendance_percent": 82
+    },
+    "performance": { "performance_review": 91, "performance_percent": 91 },
+    "total_work_hours": 1180
+  },
+  {
+    "id": 24,
+    "name": "Jack Mitchell",
+    "jobTitle": "cook",
+    "employmentType": "full time",
+    "department": "culinary",
+    "office": "Kitchen Block",
+    "email": "jackmitchell@corp.com",
+    "phone": "(688)-426-7555",
+    "shift": "night",
+    "attendance": {
+      "quarters": [
+        { "quarter": "Q1", "attendance_days": 54, "leave_days": 8 },
+        { "quarter": "Q2", "attendance_days": 56, "leave_days": 6 },
+        { "quarter": "Q3", "attendance_days": 53, "leave_days": 9 },
+        { "quarter": "Q4", "attendance_days": 55, "leave_days": 7 }
+      ],
+      "total_attendance_days": 218,
+      "attendance_percent": 82
+    },
+    "performance": { "performance_review": 52, "performance_percent": 52 },
+    "total_work_hours": 1860
+  }
+]

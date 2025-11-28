@@ -94,6 +94,7 @@ import {
 } from '~/components/ui/table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs';
 import { AlarmClockCheck } from 'lucide-react';
+import { Spacer } from '../common/Spacer';
 
 export const schema = z.object({
   id: z.number(),
@@ -102,6 +103,16 @@ export const schema = z.object({
   department: z.string(),
   employmentType: z.string(),
   office: z.string(),
+
+  attendance: z.object({
+    quarters: z.array(
+      z.object({
+        quarter: z.string(),
+        attendance_days: z.number(),
+      })
+    ),
+    attendance_percent: z.number(),
+  }),
 });
 
 function DragHandle({ id }: { id: number }) {
@@ -249,7 +260,7 @@ function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
   );
 }
 
-export function DataTable({
+export function EmployeeManagementTable({
   data: initialData,
 }: {
   data: z.infer<typeof schema>[];
@@ -323,20 +334,12 @@ export function DataTable({
         <Label htmlFor="view-selector" className="sr-only">
           View
         </Label>
-        <Select defaultValue="outline">
-          <SelectTrigger
-            className="flex w-fit @4xl/main:hidden"
-            size="sm"
-            id="view-selector"
-          >
-            <SelectValue placeholder="Select a view" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="outline">Outline</SelectItem>
-            <SelectItem value="past-performance">Past Performance</SelectItem>
-            <SelectItem value="key-personnel">Key Personnel</SelectItem>
-          </SelectContent>
-        </Select>
+        <Button
+          className="text-xs font-medium tracking-wide uppercase"
+          variant={'outline'}
+        >
+          Employee Management
+        </Button>
         <TabsList className="**:data-[slot=badge]:bg-muted-foreground/30 hidden **:data-[slot=badge]:size-5 **:data-[slot=badge]:rounded-full **:data-[slot=badge]:px-1 @4xl/main:flex">
           <TabsTrigger value="outline">Outline</TabsTrigger>
           <TabsTrigger value="past-performance">
@@ -535,13 +538,6 @@ export function DataTable({
   );
 }
 
-const chartData = [
-  { quarter: 'Quarter-1', attendance: 130, leave: 10 },
-  { quarter: 'Quarter-2', attendance: 110, leave: 20 },
-  { quarter: 'Quarter-3', attendance: 107, leave: 23 },
-  { quarter: 'Quarter-4', attendance: 127, leave: 13 },
-];
-
 const chartConfig = {
   attendance: {
     label: 'Attendance',
@@ -554,6 +550,12 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
+  const chartData = [
+    { quarter: 'Quarter-1', attendance: 10, leave: 10 },
+    { quarter: 'Quarter-2', attendance: 110, leave: 20 },
+    { quarter: 'Quarter-3', attendance: 107, leave: 23 },
+    { quarter: 'Quarter-4', attendance: 127, leave: 13 },
+  ];
   const employmentType =
     item.employmentType === 'full time'
       ? 'Full time'
@@ -576,49 +578,10 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
             Showing total attendance and leave for 4 quarters
           </DrawerDescription>
         </DrawerHeader>
+        <Spacer size="2xs" />
         <div className="flex flex-col gap-2 overflow-y-auto px-4 text-sm">
           {!isMobile && (
             <>
-              <ChartContainer config={chartConfig}>
-                <AreaChart
-                  accessibilityLayer
-                  data={chartData}
-                  margin={{
-                    left: 0,
-                    right: 10,
-                  }}
-                >
-                  <CartesianGrid vertical={false} />
-                  <XAxis
-                    dataKey="quarter"
-                    tickLine={false}
-                    axisLine={false}
-                    tickMargin={8}
-                    tickFormatter={(value) => value.slice(0, 3)}
-                    hide
-                  />
-                  <ChartTooltip
-                    cursor={false}
-                    content={<ChartTooltipContent indicator="dot" />}
-                  />
-                  <Area
-                    dataKey="attendance"
-                    type="natural"
-                    fill="var(--color-attendance)"
-                    fillOpacity={0.6}
-                    stroke="var(--color-attendance)"
-                    stackId="a"
-                  />
-                  <Area
-                    dataKey="leave"
-                    type="natural"
-                    fill="var(--color-leave)"
-                    fillOpacity={0.4}
-                    stroke="var(--color-leave)"
-                    stackId="a"
-                  />
-                </AreaChart>
-              </ChartContainer>
               <Separator />
               <div className="grid gap-2">
                 <span className="text-muted-foreground text-xs font-light">

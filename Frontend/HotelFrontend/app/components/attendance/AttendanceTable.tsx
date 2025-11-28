@@ -94,12 +94,25 @@ import {
 } from '~/components/ui/table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs';
 import { AlarmClockCheck } from 'lucide-react';
+import { AttendanceTimePicker } from './AttendanceTimePicker';
+import { Spacer } from '../common/Spacer';
 
 export const schema = z.object({
   id: z.number(),
   name: z.string(),
-  jobTitle: z.string(),
-  department: z.string(),
+  shift: z.string(),
+  attendance: z.object({
+    quarters: z.array(
+      z.object({
+        quarter: z.string(),
+        attendance_days: z.number(),
+        leave_days: z.number(),
+      })
+    ),
+    total_attendance_days: z.number(),
+    attendance_percent: z.number(),
+  }),
+  total_work_hours: z.number(),
   employmentType: z.string(),
   office: z.string(),
 });
@@ -164,17 +177,6 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'jobTitle',
-    header: 'Job Title',
-    cell: ({ row }) => (
-      <div className="w-32">
-        <span className="text-muted-foreground px-1.5 capitalize">
-          {row.original.jobTitle}
-        </span>
-      </div>
-    ),
-  },
-  {
     accessorKey: 'employmentType',
     header: 'Employment Type',
     cell: ({ row }) => (
@@ -189,12 +191,35 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     ),
   },
   {
-    accessorKey: 'department',
-    header: 'Department',
+    accessorKey: 'Attendance Percent',
+    header: 'Attendance Percent',
     cell: ({ row }) => (
-      <div className="w-32">
+      <div className="flex w-32 justify-center">
         <span className="text-muted-foreground px-1.5 capitalize">
-          {row.original.department}
+          {row.original.attendance.attendance_percent}%
+        </span>
+      </div>
+    ),
+  },
+  {
+    accessorKey: 'Shift',
+    header: 'Shift',
+    cell: ({ row }) => (
+      <div className="flex w-32 justify-start">
+        <span className="text-muted-foreground px-1.5 capitalize">
+          {row.original.shift}
+        </span>
+      </div>
+    ),
+  },
+
+  {
+    accessorKey: 'total_work_hours',
+    header: 'Total work hour',
+    cell: ({ row }) => (
+      <div className="flex w-32">
+        <span className="text-muted-foreground px-1.5 text-center">
+          {row.original.total_work_hours} hr
         </span>
       </div>
     ),
@@ -249,7 +274,7 @@ function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
   );
 }
 
-export function DataTable({
+export function AttendanceTable({
   data: initialData,
 }: {
   data: z.infer<typeof schema>[];
@@ -323,30 +348,13 @@ export function DataTable({
         <Label htmlFor="view-selector" className="sr-only">
           View
         </Label>
-        <Select defaultValue="outline">
-          <SelectTrigger
-            className="flex w-fit @4xl/main:hidden"
-            size="sm"
-            id="view-selector"
-          >
-            <SelectValue placeholder="Select a view" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="outline">Outline</SelectItem>
-            <SelectItem value="past-performance">Past Performance</SelectItem>
-            <SelectItem value="key-personnel">Key Personnel</SelectItem>
-          </SelectContent>
-        </Select>
-        <TabsList className="**:data-[slot=badge]:bg-muted-foreground/30 hidden **:data-[slot=badge]:size-5 **:data-[slot=badge]:rounded-full **:data-[slot=badge]:px-1 @4xl/main:flex">
-          <TabsTrigger value="outline">Outline</TabsTrigger>
-          <TabsTrigger value="past-performance">
-            Past Performance <Badge variant="secondary">3</Badge>
-          </TabsTrigger>
-          <TabsTrigger value="key-personnel">
-            Key Personnel <Badge variant="secondary">2</Badge>
-          </TabsTrigger>
-          <TabsTrigger value="focus-documents">Focus Documents</TabsTrigger>
-        </TabsList>
+        <Button
+          className="text-xs font-medium tracking-wide uppercase"
+          variant={'outline'}
+        >
+          Attendance
+        </Button>
+        <TabsList className="**:data-[slot=badge]:bg-muted-foreground/30 hidden **:data-[slot=badge]:size-5 **:data-[slot=badge]:rounded-full **:data-[slot=badge]:px-1 @4xl/main:flex"></TabsList>
         <div className="flex items-center gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -535,13 +543,6 @@ export function DataTable({
   );
 }
 
-const chartData = [
-  { quarter: 'Quarter-1', attendance: 130, leave: 10 },
-  { quarter: 'Quarter-2', attendance: 110, leave: 20 },
-  { quarter: 'Quarter-3', attendance: 107, leave: 23 },
-  { quarter: 'Quarter-4', attendance: 127, leave: 13 },
-];
-
 const chartConfig = {
   attendance: {
     label: 'Attendance',
@@ -553,13 +554,36 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
+function TableCellViewer({ item }: Readonly<{ item: z.infer<typeof schema> }>) {
   const employmentType =
     item.employmentType === 'full time'
       ? 'Full time'
       : item.employmentType === 'part time'
         ? 'Part time'
         : item.employmentType;
+
+  const chartData = [
+    {
+      quarter: item.attendance.quarters[0].quarter,
+      attendance: item.attendance.quarters[0].attendance_days,
+      leave: item.attendance.quarters[0].leave_days,
+    },
+    {
+      quarter: item.attendance.quarters[1].quarter,
+      attendance: item.attendance.quarters[1].attendance_days,
+      leave: item.attendance.quarters[1].leave_days,
+    },
+    {
+      quarter: item.attendance.quarters[2].quarter,
+      attendance: item.attendance.quarters[2].attendance_days,
+      leave: item.attendance.quarters[2].leave_days,
+    },
+    {
+      quarter: item.attendance.quarters[3].quarter,
+      attendance: item.attendance.quarters[3].attendance_days,
+      leave: item.attendance.quarters[3].leave_days,
+    },
+  ];
 
   const isMobile = useIsMobile();
   return (
@@ -622,60 +646,66 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
               <Separator />
               <div className="grid gap-2">
                 <span className="text-muted-foreground text-xs font-light">
-                  97% attendance over the past 4 quarters
+                  {item.attendance.attendance_percent}% attendance over the past
+                  4 quarters
                 </span>
                 <div className="text-muted-foreground"></div>
               </div>
               <Separator />
             </>
           )}
+          <Spacer size="4xs" />
           <form className="flex flex-col gap-4">
-            <div className="flex flex-col gap-3">
-              <Label htmlFor="name">Employee Name</Label>
-              <Input id="name" defaultValue={item.name} />
-            </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-3">
-                <Label htmlFor="employmentType">Employment Type</Label>
-                <Select defaultValue={employmentType}>
-                  <SelectTrigger id="employmentType" className="w-full">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Full time">Full time</SelectItem>
-                    <SelectItem value="Part time">Part time</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="flex flex-col gap-3">
-                <Label htmlFor="department">Department</Label>
-                <Select defaultValue={item.department}>
-                  <SelectTrigger id="department" className="w-full">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="hr">HR</SelectItem>
-                    <SelectItem value="culinary">Culinary</SelectItem>
-                    <SelectItem value="administration">
-                      Administration
-                    </SelectItem>
-                    <SelectItem value="housekeeping">House Keeping</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex flex-col gap-3">
-                <Label htmlFor="department">Job title</Label>
+                <Label htmlFor="name">Employment Type</Label>
                 <Input
-                  id="department"
-                  defaultValue={item.jobTitle}
+                  id="name"
+                  defaultValue={item.employmentType}
+                  disabled
                   className="capitalize"
                 />
               </div>
-              <div className="flex flex-col gap-3"></div>
+              <div className="flex flex-col gap-3">
+                <Label htmlFor="name">Shift</Label>
+                <Input
+                  id="name"
+                  defaultValue={item.shift}
+                  disabled
+                  className="capitalize"
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex flex-col gap-3">
+                <Label htmlFor="name">Attendance Percent</Label>
+                <Input
+                  id="name"
+                  value={item.attendance.attendance_percent}
+                  disabled
+                  className="capitalize"
+                />
+              </div>
+              <div className="flex flex-col gap-3">
+                <Label htmlFor="name">Total work hours</Label>
+                <Input
+                  id="name"
+                  defaultValue={item.total_work_hours}
+                  disabled
+                  className="capitalize"
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <span className="text-primary font-semibold">Set Time In</span>
+                <AttendanceTimePicker />
+              </div>
+              <div>
+                <span className="text-primary font-semibold">Set Time Out</span>
+
+                <AttendanceTimePicker />
+              </div>
             </div>
           </form>
         </div>
