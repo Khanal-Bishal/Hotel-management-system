@@ -25,9 +25,13 @@ import {
   SelectValue,
 } from '~/components/ui/select';
 import { ToggleGroup, ToggleGroupItem } from '~/components/ui/toggle-group';
-import { chartData } from 'public/data/ChartData';
+import type { DailyPerformance } from 'src/types/dailyPerformance';
 
 export const description = 'An interactive area chart';
+
+interface ChartAreaInteractiveProps {
+  dailyPerformanceData: DailyPerformance[];
+}
 
 const chartConfig = {
   housekeeping: {
@@ -48,7 +52,9 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function ChartAreaInteractive() {
+export function ChartAreaInteractive({
+  dailyPerformanceData,
+}: ChartAreaInteractiveProps) {
   const isMobile = useIsMobile();
   const [timeRange, setTimeRange] = React.useState('90d');
 
@@ -58,7 +64,7 @@ export function ChartAreaInteractive() {
     }
   }, [isMobile]);
 
-  const filteredData = chartData.filter((item) => {
+  const filteredData = dailyPerformanceData.filter((item) => {
     const date = new Date(item.date);
     const referenceDate = new Date('2025-11-30');
     let daysToSubtract = 90;

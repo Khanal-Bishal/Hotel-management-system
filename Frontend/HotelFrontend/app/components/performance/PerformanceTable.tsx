@@ -33,8 +33,7 @@ import {
   TableHeader,
   TableRow,
 } from '~/components/ui/table';
-
-import data from '~/../public/data/EmployeeData.json';
+import type { Employee } from 'src/types/employee';
 
 export type Performance = {
   id: string | number;
@@ -166,7 +165,11 @@ export const columns: ColumnDef<Performance>[] = [
   },
 ];
 
-export function PerformanceTable() {
+interface PerformanceTableProps {
+  data: Employee[];
+}
+
+export function PerformanceTable({ data }: PerformanceTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []

@@ -43,18 +43,12 @@ import {
   useReactTable,
   type VisibilityState,
 } from '@tanstack/react-table';
-import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts';
 import { z } from 'zod';
 
 import { useIsMobile } from '~/hooks/use-mobile';
 import { Badge } from '~/components/ui/badge';
 import { Button } from '~/components/ui/button';
-import {
-  type ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from '~/components/ui/chart';
+import { type ChartConfig } from '~/components/ui/chart';
 import { Checkbox } from '~/components/ui/checkbox';
 import {
   Drawer,
@@ -95,6 +89,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs';
 import { AlarmClockCheck } from 'lucide-react';
 import { Spacer } from '../common/Spacer';
+import { NewEmployeeSheet } from './NewEmployeeSheet';
 
 export const schema = z.object({
   id: z.number(),
@@ -103,6 +98,10 @@ export const schema = z.object({
   department: z.string(),
   employmentType: z.string(),
   office: z.string(),
+  shift: z.string(),
+  email: z.string(),
+  phone: z.string(),
+  total_work_hours: z.number(),
 
   attendance: z.object({
     quarters: z.array(
@@ -111,6 +110,7 @@ export const schema = z.object({
         attendance_days: z.number(),
       })
     ),
+    total_attendance_days: z.number(),
     attendance_percent: z.number(),
   }),
 });
@@ -134,112 +134,10 @@ function DragHandle({ id }: { id: number }) {
   );
 }
 
-const columns: ColumnDef<z.infer<typeof schema>>[] = [
-  {
-    id: 'drag',
-    header: () => null,
-    cell: ({ row }) => <DragHandle id={row.original.id} />,
-  },
-  {
-    id: 'select',
-    header: ({ table }) => (
-      <div className="flex items-center justify-center">
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && 'indeterminate')
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all"
-        />
-      </div>
-    ),
-    cell: ({ row }) => (
-      <div className="flex items-center justify-center">
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label="Select row"
-        />
-      </div>
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
-    accessorKey: 'name',
-    header: 'Employee Name',
-    cell: ({ row }) => {
-      return <TableCellViewer item={row.original} />;
-    },
-    enableHiding: false,
-  },
-  {
-    accessorKey: 'jobTitle',
-    header: 'Job Title',
-    cell: ({ row }) => (
-      <div className="w-32">
-        <span className="text-muted-foreground px-1.5 capitalize">
-          {row.original.jobTitle}
-        </span>
-      </div>
-    ),
-  },
-  {
-    accessorKey: 'employmentType',
-    header: 'Employment Type',
-    cell: ({ row }) => (
-      <Badge variant="outline" className="text-muted-foreground px-1.5">
-        {row.original.employmentType === 'full time' ? (
-          <AlarmClockCheck className="fill-green-600" />
-        ) : (
-          <AlarmClockCheck className="fill-red-500" />
-        )}
-        {row.original.employmentType}
-      </Badge>
-    ),
-  },
-  {
-    accessorKey: 'department',
-    header: 'Department',
-    cell: ({ row }) => (
-      <div className="w-32">
-        <span className="text-muted-foreground px-1.5 capitalize">
-          {row.original.department}
-        </span>
-      </div>
-    ),
-  },
-
-  {
-    id: 'actions',
-    cell: () => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            className="data-[state=open]:bg-muted text-muted-foreground flex size-8"
-            size="icon"
-          >
-            <IconDotsVertical />
-            <span className="sr-only">Open menu</span>
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-32">
-          <DropdownMenuItem>Make a copy</DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ),
-  },
-];
-
 function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
   const { transform, transition, setNodeRef, isDragging } = useSortable({
     id: row.original.id,
   });
-
   return (
     <TableRow
       data-state={row.getIsSelected() && 'selected'}
@@ -262,8 +160,10 @@ function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
 
 export function EmployeeManagementTable({
   data: initialData,
+  onDelete,
 }: {
   data: z.infer<typeof schema>[];
+  onDelete: (id: number) => void;
 }) {
   const [data, setData] = React.useState(() => initialData);
   const [rowSelection, setRowSelection] = React.useState({});
@@ -288,6 +188,116 @@ export function EmployeeManagementTable({
     () => data?.map(({ id }) => id) || [],
     [data]
   );
+  const columns: ColumnDef<z.infer<typeof schema>>[] = [
+    {
+      id: 'drag',
+      header: () => null,
+      cell: ({ row }) => <DragHandle id={row.original.id} />,
+    },
+    {
+      id: 'select',
+      header: ({ table }) => (
+        <div className="flex items-center justify-center">
+          <Checkbox
+            checked={
+              table.getIsAllPageRowsSelected() ||
+              (table.getIsSomePageRowsSelected() && 'indeterminate')
+            }
+            onCheckedChange={(value) =>
+              table.toggleAllPageRowsSelected(!!value)
+            }
+            aria-label="Select all"
+          />
+        </div>
+      ),
+      cell: ({ row }) => (
+        <div className="flex items-center justify-center">
+          <Checkbox
+            checked={row.getIsSelected()}
+            onCheckedChange={(value) => row.toggleSelected(!!value)}
+            aria-label="Select row"
+          />
+        </div>
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    },
+    {
+      accessorKey: 'name',
+      header: 'Employee Name',
+      cell: ({ row }) => {
+        return <TableCellViewer item={row.original} />;
+      },
+      enableHiding: false,
+    },
+    {
+      accessorKey: 'jobTitle',
+      header: 'Job Title',
+      cell: ({ row }) => (
+        <div className="w-32">
+          <span className="text-muted-foreground px-1.5 capitalize">
+            {row.original.jobTitle}
+          </span>
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'employmentType',
+      header: 'Employment Type',
+      cell: ({ row }) => (
+        <Badge variant="outline" className="text-muted-foreground px-1.5">
+          {row.original.employmentType === 'full time' ? (
+            <AlarmClockCheck className="fill-green-600" />
+          ) : (
+            <AlarmClockCheck className="fill-red-500" />
+          )}
+          {row.original.employmentType}
+        </Badge>
+      ),
+    },
+    {
+      accessorKey: 'department',
+      header: 'Department',
+      cell: ({ row }) => (
+        <div className="w-32">
+          <span className="text-muted-foreground px-1.5 capitalize">
+            {row.original.department}
+          </span>
+        </div>
+      ),
+    },
+
+    {
+      id: 'actions',
+      cell: ({ row }) => (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="ghost"
+              className="data-[state=open]:bg-muted text-muted-foreground flex size-8"
+              size="icon"
+            >
+              <IconDotsVertical />
+            </Button>
+          </DropdownMenuTrigger>
+
+          <DropdownMenuContent align="end" className="w-32">
+            <DropdownMenuItem>Make a copy</DropdownMenuItem>
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem
+              variant="destructive"
+              onClick={() => {
+                onDelete(row.original.id);
+              }}
+            >
+              Delete
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      ),
+    },
+  ];
 
   const table = useReactTable({
     data,
@@ -334,12 +344,9 @@ export function EmployeeManagementTable({
         <Label htmlFor="view-selector" className="sr-only">
           View
         </Label>
-        <Button
-          className="text-xs font-medium tracking-wide uppercase"
-          variant={'outline'}
-        >
-          Employee Management
-        </Button>
+
+        <NewEmployeeSheet />
+
         <TabsList className="**:data-[slot=badge]:bg-muted-foreground/30 hidden **:data-[slot=badge]:size-5 **:data-[slot=badge]:rounded-full **:data-[slot=badge]:px-1 @4xl/main:flex">
           <TabsTrigger value="outline">Outline</TabsTrigger>
           <TabsTrigger value="past-performance">
@@ -538,24 +545,7 @@ export function EmployeeManagementTable({
   );
 }
 
-const chartConfig = {
-  attendance: {
-    label: 'Attendance',
-    color: 'var(--primary)',
-  },
-  leave: {
-    label: 'Leave',
-    color: 'var(--primary)',
-  },
-} satisfies ChartConfig;
-
-function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
-  const chartData = [
-    { quarter: 'Quarter-1', attendance: 10, leave: 10 },
-    { quarter: 'Quarter-2', attendance: 110, leave: 20 },
-    { quarter: 'Quarter-3', attendance: 107, leave: 23 },
-    { quarter: 'Quarter-4', attendance: 127, leave: 13 },
-  ];
+function TableCellViewer({ item }: Readonly<{ item: z.infer<typeof schema> }>) {
   const employmentType =
     item.employmentType === 'full time'
       ? 'Full time'
@@ -578,20 +568,21 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
             Showing total attendance and leave for 4 quarters
           </DrawerDescription>
         </DrawerHeader>
-        <Spacer size="2xs" />
         <div className="flex flex-col gap-2 overflow-y-auto px-4 text-sm">
           {!isMobile && (
             <>
               <Separator />
               <div className="grid gap-2">
                 <span className="text-muted-foreground text-xs font-light">
-                  97% attendance over the past 4 quarters
+                  {item.attendance.attendance_percent}% attendance over the past
+                  4 quarters
                 </span>
                 <div className="text-muted-foreground"></div>
               </div>
               <Separator />
             </>
           )}
+          <Spacer size="4xs" />
           <form className="flex flex-col gap-4">
             <div className="flex flex-col gap-3">
               <Label htmlFor="name">Employee Name</Label>
@@ -638,7 +629,68 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
                   className="capitalize"
                 />
               </div>
-              <div className="flex flex-col gap-3"></div>
+              <div className="flex flex-col gap-3">
+                <Label htmlFor="office">Office</Label>
+                <Input
+                  id="office"
+                  defaultValue={item.office}
+                  className="w-full capitalize"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex flex-col gap-3">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  defaultValue={item.email}
+                  className="w-full capitalize"
+                />
+              </div>
+              <div className="flex flex-col gap-3">
+                <Label htmlFor="phone">Phone</Label>
+                <Input
+                  id="phone"
+                  defaultValue={item.phone}
+                  className="w-full capitalize"
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex flex-col gap-3">
+                <Label htmlFor="total_attendance_days">
+                  Total attendance days
+                </Label>
+                <Input
+                  id="total_attendance_days"
+                  type="number"
+                  defaultValue={item.attendance.total_attendance_days}
+                  className="w-full"
+                />
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <Label htmlFor="total_work_hours">Total work hours</Label>
+                <Input
+                  id="  "
+                  defaultValue={item.total_work_hours}
+                  className="w-full capitalize"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col gap-3">
+              <Label htmlFor="shift">Shift</Label>
+              <Select defaultValue={item.shift}>
+                <SelectTrigger id="shift" className="w-full">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="morning">Morning</SelectItem>
+                  <SelectItem value="evening">Evening</SelectItem>
+                  <SelectItem value="night">Night</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </form>
         </div>

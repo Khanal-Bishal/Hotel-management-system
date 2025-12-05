@@ -2,8 +2,13 @@ import { PerformanceChart } from './PerformanceChart';
 import { PerformanceRanking } from './PerformanceRanking';
 import { PerformanceTable } from './PerformanceTable';
 import { Spacer } from '../common/Spacer';
+import type { Employee } from 'src/types/employee';
 
-const PerformanceLayout = () => {
+interface PerformanceLayoutProps {
+  employeeList: Employee[];
+}
+
+const PerformanceLayout = ({ employeeList }: PerformanceLayoutProps) => {
   return (
     <>
       <div className="flex w-full grow gap-4">
@@ -15,7 +20,7 @@ const PerformanceLayout = () => {
         <span className="text-primary mx-4 text-lg font-bold tracking-wide">
           Performance table
         </span>
-        <PerformanceTable />
+        <PerformanceTable data={employeeList} />
       </div>
     </>
   );

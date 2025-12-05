@@ -7,6 +7,8 @@ import {
   Loader,
   ThumbsUp,
 } from 'lucide-react';
+import type { DailyPerformance } from 'src/types/dailyPerformance';
+import { NewDailyPerformanceSheet } from './NewDailyPerformanceSheet';
 
 export const dashboardCards = [
   {
@@ -47,7 +49,15 @@ export const dashboardCards = [
   },
 ];
 
-export default function DashboardLayout() {
+interface DashboardLayoutProps {
+  dailyPerformanceData: DailyPerformance[];
+  onRefresh: () => void;
+}
+
+export default function DashboardLayout({
+  dailyPerformanceData,
+  onRefresh,
+}: DashboardLayoutProps) {
   return (
     <div className="flex flex-col gap-4">
       <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-2 gap-4 px-4 *:data-[slot=card]:bg-linear-to-t *:data-[slot=card]:shadow-xs lg:px-6 @5xl/main:grid-cols-4">
@@ -57,7 +67,8 @@ export default function DashboardLayout() {
       </div>
       <Spacer size="4xs" />
       <div className="px-4 lg:px-6">
-        <ChartAreaInteractive />
+        <NewDailyPerformanceSheet onSuccess={onRefresh} /> <Spacer size="4xs" />
+        <ChartAreaInteractive dailyPerformanceData={dailyPerformanceData} />
       </div>
       <Spacer size="4xs" />
     </div>
