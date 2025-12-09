@@ -90,6 +90,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs';
 import { AlarmClockCheck } from 'lucide-react';
 import { Spacer } from '../common/Spacer';
 import { NewEmployeeSheet } from './NewEmployeeSheet';
+import { updateEmployee } from 'src/services/employeeService';
+import toast from 'react-hot-toast';
 
 export const schema = z.object({
   id: z.number(),
@@ -102,6 +104,7 @@ export const schema = z.object({
   email: z.string(),
   phone: z.string(),
   total_work_hours: z.number(),
+  leave_days: z.number(),
 
   attendance: z.object({
     quarters: z.array(
@@ -546,12 +549,40 @@ export function EmployeeManagementTable({
 }
 
 function TableCellViewer({ item }: Readonly<{ item: z.infer<typeof schema> }>) {
-  const employmentType =
-    item.employmentType === 'full time'
-      ? 'Full time'
-      : item.employmentType === 'part time'
-        ? 'Part time'
-        : item.employmentType;
+  const [formData, setFormData] = React.useState({
+    name: item.name,
+    jobTitle: item.jobTitle,
+    department: item.department,
+    employmentType: item.employmentType,
+    office: item.office,
+    email: item.email,
+    phone: item.phone,
+    shift: item.shift,
+    total_work_hours: item.total_work_hours,
+    attendance: {
+      total_attendance_days: item.attendance.total_attendance_days,
+      attendance_percent: item.attendance.attendance_percent,
+      quarters: item.attendance.quarters,
+    },
+  });
+
+  const [loading, setLoading] = React.useState(false);
+
+  const handleUpdate = async () => {
+    try {
+      setLoading(true);
+
+      await updateEmployee(item.id, formData);
+
+      toast.success('Employee updated successfully ');
+      window.location.reload();
+    } catch (err) {
+      console.error(err);
+      toast.error('Update failed ❌');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const isMobile = useIsMobile();
   return (
@@ -586,12 +617,22 @@ function TableCellViewer({ item }: Readonly<{ item: z.infer<typeof schema> }>) {
           <form className="flex flex-col gap-4">
             <div className="flex flex-col gap-3">
               <Label htmlFor="name">Employee Name</Label>
-              <Input id="name" defaultValue={item.name} />
+              <Input
+                value={formData.name}
+                onChange={(e) =>
+                  setFormData((p) => ({ ...p, name: e.target.value }))
+                }
+              />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-3">
                 <Label htmlFor="employmentType">Employment Type</Label>
-                <Select defaultValue={employmentType}>
+                <Select
+                  value={formData.employmentType}
+                  onValueChange={(value) =>
+                    setFormData((p) => ({ ...p, employmentType: value }))
+                  }
+                >
                   <SelectTrigger id="employmentType" className="w-full">
                     <SelectValue />
                   </SelectTrigger>
@@ -604,7 +645,12 @@ function TableCellViewer({ item }: Readonly<{ item: z.infer<typeof schema> }>) {
 
               <div className="flex flex-col gap-3">
                 <Label htmlFor="department">Department</Label>
-                <Select defaultValue={item.department}>
+                <Select
+                  value={formData.department}
+                  onValueChange={(value) =>
+                    setFormData((p) => ({ ...p, department: value }))
+                  }
+                >
                   <SelectTrigger id="department" className="w-full">
                     <SelectValue />
                   </SelectTrigger>
@@ -624,17 +670,19 @@ function TableCellViewer({ item }: Readonly<{ item: z.infer<typeof schema> }>) {
               <div className="flex flex-col gap-3">
                 <Label htmlFor="department">Job title</Label>
                 <Input
-                  id="department"
-                  defaultValue={item.jobTitle}
-                  className="capitalize"
+                  value={formData.jobTitle}
+                  onChange={(e) =>
+                    setFormData((p) => ({ ...p, jobTitle: e.target.value }))
+                  }
                 />
               </div>
               <div className="flex flex-col gap-3">
                 <Label htmlFor="office">Office</Label>
                 <Input
-                  id="office"
-                  defaultValue={item.office}
-                  className="w-full capitalize"
+                  value={formData.office}
+                  onChange={(e) =>
+                    setFormData((p) => ({ ...p, office: e.target.value }))
+                  }
                 />
               </div>
             </div>
@@ -643,17 +691,19 @@ function TableCellViewer({ item }: Readonly<{ item: z.infer<typeof schema> }>) {
               <div className="flex flex-col gap-3">
                 <Label htmlFor="email">Email</Label>
                 <Input
-                  id="email"
-                  defaultValue={item.email}
-                  className="w-full capitalize"
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData((p) => ({ ...p, email: e.target.value }))
+                  }
                 />
               </div>
               <div className="flex flex-col gap-3">
                 <Label htmlFor="phone">Phone</Label>
                 <Input
-                  id="phone"
-                  defaultValue={item.phone}
-                  className="w-full capitalize"
+                  value={formData.phone}
+                  onChange={(e) =>
+                    setFormData((p) => ({ ...p, phone: e.target.value }))
+                  }
                 />
               </div>
             </div>
@@ -663,25 +713,42 @@ function TableCellViewer({ item }: Readonly<{ item: z.infer<typeof schema> }>) {
                   Total attendance days
                 </Label>
                 <Input
-                  id="total_attendance_days"
                   type="number"
-                  defaultValue={item.attendance.total_attendance_days}
-                  className="w-full"
+                  value={formData.attendance.total_attendance_days}
+                  onChange={(e) =>
+                    setFormData((p) => ({
+                      ...p,
+                      attendance: {
+                        ...p.attendance,
+                        total_attendance_days: Number(e.target.value),
+                      },
+                    }))
+                  }
                 />
               </div>
 
               <div className="flex flex-col gap-3">
                 <Label htmlFor="total_work_hours">Total work hours</Label>
                 <Input
-                  id="  "
-                  defaultValue={item.total_work_hours}
-                  className="w-full capitalize"
+                  type="number"
+                  value={formData.total_work_hours}
+                  onChange={(e) =>
+                    setFormData((p) => ({
+                      ...p,
+                      total_work_hours: Number(e.target.value),
+                    }))
+                  }
                 />
               </div>
             </div>
             <div className="flex flex-col gap-3">
               <Label htmlFor="shift">Shift</Label>
-              <Select defaultValue={item.shift}>
+              <Select
+                value={formData.shift}
+                onValueChange={(value: 'morning' | 'evening' | 'night') =>
+                  setFormData((p) => ({ ...p, shift: value }))
+                }
+              >
                 <SelectTrigger id="shift" className="w-full">
                   <SelectValue />
                 </SelectTrigger>
@@ -695,7 +762,10 @@ function TableCellViewer({ item }: Readonly<{ item: z.infer<typeof schema> }>) {
           </form>
         </div>
         <DrawerFooter>
-          <Button>Update</Button>
+          <Button onClick={handleUpdate} disabled={loading}>
+            {loading ? 'Updating...' : 'Update'}
+          </Button>
+
           <DrawerClose asChild>
             <Button variant="outline">Done</Button>
           </DrawerClose>

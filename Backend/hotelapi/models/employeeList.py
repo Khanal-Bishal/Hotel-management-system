@@ -7,6 +7,7 @@ from pydantic import BaseModel
 class ShiftType(str, Enum):
     morning = "morning"
     evening = "evening"
+    night = "night"
 
 
 class DepartmentType(str, Enum):
@@ -58,6 +59,6 @@ class EmployeeUpdate(BaseModel):
     phone: Optional[str] = None
     shift: Optional[ShiftType] = None
 
-    attendance: Attendance
-    performance: Performance
-    total_work_hours: int
+    attendance: Optional[Attendance] = None
+    performance: Optional[Performance] = None
+    total_work_hours: Optional[int] = None

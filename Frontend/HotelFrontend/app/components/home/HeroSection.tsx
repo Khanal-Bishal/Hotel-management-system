@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from '../ui/button';
 import ColorfulText from '../common/ColorfulText';
 import { TextGenerateEffect } from '../ui/text-generate-effect';
+import { Link } from 'react-router';
 const words = `Enhance hotel operations with our intuitive dashboard for staff
           scheduling, attendance tracking, and performance insights.`;
 
@@ -20,7 +21,9 @@ const HeroSection = () => {
 
       {/* CTA Buttons */}
       <div className="flex items-center gap-4">
-        <Button variant={'default'}>Demo 南宿云</Button>
+        <Link to="/dashboard">
+          <Button variant={'default'}>Demo 南宿云</Button>
+        </Link>
         <Button variant="ghost">Learn More</Button>
       </div>
     </div>

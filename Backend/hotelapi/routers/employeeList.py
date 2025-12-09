@@ -10,35 +10,9 @@ router = APIRouter(
 )
 
 
-# @router.post("/")
-# async def create_employee(employee: Employee):
-#     query = employee_table.insert().values(
-#         name=employee.name,
-#         jobTitle=employee.jobTitle,
-#         employmentType=employee.employmentType,
-#         department=employee.department,
-#         office=employee.office,
-#         email=employee.email,
-#         phone=employee.phone,
-#         shift=employee.shift,
-#         attendance=employee.attendance,
-#         performance=employee.performance,
-#         total_work_hours=employee.total_work_hours,
-#     )
-
-#     employee_id = await database.execute(query)
-
-#     return {
-#         "message": "Employee created successfully",
-#         "employee_id": employee_id,
-#         "employee_name": employee.name
-#     }
-
-
 @router.post("/", response_model=Employee)
 async def create_employee(employee: Employee):
 
-    # ✅ converts nested Pydantic → dict
     employee_data = jsonable_encoder(employee)
 
     query = employee_table.insert().values(
@@ -50,8 +24,8 @@ async def create_employee(employee: Employee):
         email=employee_data["email"],
         phone=employee_data["phone"],
         shift=employee_data["shift"],
-        attendance=employee_data["attendance"],   # ✅ now pure dict
-        performance=employee_data["performance"],  # ✅ now pure dict
+        attendance=employee_data["attendance"],
+        performance=employee_data["performance"],
         total_work_hours=employee_data["total_work_hours"],
     )
 
@@ -64,7 +38,6 @@ async def create_employee(employee: Employee):
 
 
 # POST /employees -creating employee
-
 @router.get("/")
 async def get_all_employees():
     query = employee_table.select()

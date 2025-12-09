@@ -71,8 +71,8 @@ export function NewDailyPerformanceSheet({
 
     toast.promise(promise, {
       loading: 'Adding performance...',
-      success: 'Performance added successfully ✅',
-      error: 'Failed to add performance ❌',
+      success: 'Performance added successfully ',
+      error: 'Failed to add performance',
     });
 
     try {
@@ -176,7 +176,6 @@ export function NewDailyPerformanceSheet({
             </div>
           </div>
 
-          {/* ✅✅✅ SUBMIT BUTTON MOVED INSIDE FORM ✅✅✅ */}
           <SheetFooter>
             <Button type="submit" disabled={isSubmitting}>
               {isSubmitting ? 'Adding...' : 'Add performance'}

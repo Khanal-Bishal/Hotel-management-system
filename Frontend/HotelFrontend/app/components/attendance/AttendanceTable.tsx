@@ -696,21 +696,9 @@ function TableCellViewer({ item }: Readonly<{ item: z.infer<typeof schema> }>) {
                 />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <span className="text-primary font-semibold">Set Time In</span>
-                <AttendanceTimePicker />
-              </div>
-              <div>
-                <span className="text-primary font-semibold">Set Time Out</span>
-
-                <AttendanceTimePicker />
-              </div>
-            </div>
           </form>
         </div>
         <DrawerFooter>
-          <Button>Update</Button>
           <DrawerClose asChild>
             <Button variant="outline">Done</Button>
           </DrawerClose>

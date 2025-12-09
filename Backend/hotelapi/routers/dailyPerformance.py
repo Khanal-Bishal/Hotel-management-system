@@ -10,8 +10,6 @@ router = APIRouter(
     tags=["DailyPerformance"]
 )
 
-# ✅ POST → Save to DB
-
 
 @router.post("/")
 async def write_daily_performance(dailyPerformance: DailyPerformance):
@@ -35,7 +33,7 @@ async def write_daily_performance(dailyPerformance: DailyPerformance):
     }
 
 
-# ✅ GET → Fetch all from DB
+#  GET → Fetch all from DB
 @router.get("/")
 async def get_daily_performance():
     """
@@ -48,7 +46,7 @@ async def get_daily_performance():
     return results
 
 
-# ✅ GET → Fetch single record by ID
+#  GET → Fetch single record by ID
 @router.get("/{performance_id}")
 async def get_single_daily_performance(performance_id: int):
     """

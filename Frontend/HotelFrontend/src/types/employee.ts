@@ -1,31 +1,39 @@
-export type AttendanceQuarter = {
+export type ShiftType = 'morning' | 'evening' | 'night';
+
+export type DepartmentType =
+  | 'hr'
+  | 'culinary'
+  | 'administration'
+  | 'housekeeping';
+
+export interface AttendanceQuarter {
   quarter: 'Q1' | 'Q2' | 'Q3' | 'Q4';
   attendance_days: number;
   leave_days: number;
-};
+}
 
-export type Attendance = {
+export interface Attendance {
   quarters: AttendanceQuarter[];
   total_attendance_days: number;
   attendance_percent: number;
-};
+}
 
-export type Performance = {
+export interface Performance {
   performance_review: number;
   performance_percent: number;
-};
+}
 
-export type Employee = {
+export interface Employee {
   id: number;
   name: string;
   jobTitle: string;
   employmentType: 'full time' | 'part time';
-  department: string;
+  department: DepartmentType;
   office: string;
   email: string;
   phone: string;
-  shift: 'morning' | 'evening' | 'night';
+  shift: ShiftType;
   attendance: Attendance;
   performance: Performance;
   total_work_hours: number;
-};
+}

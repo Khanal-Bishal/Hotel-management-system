@@ -8,7 +8,7 @@ from hotelapi.config import config
 metadata = sqlalchemy.MetaData()
 
 
-shift_enum = sqlalchemy.Enum("morning", "evening", name="shift_type")
+shift_enum = sqlalchemy.Enum("morning", "evening", "night", name="shift_type")
 department_enum = sqlalchemy.Enum(
     "culinary", "administration", "housekeeping", "hr", name="department_type"
 )
